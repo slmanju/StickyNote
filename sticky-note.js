@@ -43,8 +43,8 @@ StickyNote.TEMPLATE = `
     <div class="col s12 m4 l4">
         <div class="card">
             <div class="card-content">
-                <p id="title"></p>
-                <p id="note"></p>
+                <p id="title" style="font-weight: bold;"></p>
+                <p id="note" style="font-style: italic;"></p>
             </div>
             <div class="card-action">
                 <a href='#' id="delete">Delete</a>
