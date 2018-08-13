@@ -19,6 +19,9 @@ class StickyNoteApp {
     displayNote(note) {
         let noteElement = document.createElement('sticky-note');
         noteElement.setNote(note);
+        noteElement.addEventListener('noteDelete', () => {
+            console.log('hello from delete');
+        });
         this.notesContainer.appendChild(noteElement);
     }
 
