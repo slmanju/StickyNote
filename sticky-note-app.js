@@ -4,21 +4,39 @@ import StickyNote from './sticky-note.js';
 
 class StickyNoteApp {
     constructor() {
-        console.log('hello from app');
-        this.$notes = [
-            { id: 1, title: 'title a', note: 'note a' },
-            { id: 2, title: 'title b', note: 'note b' },
-            { id: 3, title: 'title c', note: 'note c' },
-            { id: 4, title: 'title d', note: 'note d' }
-        ];
-        this.$notesContainer = document.getElementById("notes");
-        let container = this.$notesContainer;
-        this.$notes.forEach((note) => {
-            let noteElement = document.createElement('sticky-note');
-            noteElement.setNote(note);
-            container.appendChild(noteElement);
-        });
+        this.notesContainer = document.getElementById('notes');
+        this.noteInput = document.getElementById('note');
+        this.titleInput = document.getElementById('title');
+        this.saveButton = document.getElementById('saveButton');
+
+        this.$savedNotes = JSON.parse(localStorage.getItem("notes")) || [];
+
+        this.saveButton.addEventListener('click', () => this.saveNote());
+
+        this.$savedNotes.forEach(note => this.displayNote(note));
     }
+
+    displayNote(note) {
+        let noteElement = document.createElement('sticky-note');
+        noteElement.setNote(note);
+        this.notesContainer.appendChild(noteElement);
+    }
+
+    saveNote() {
+        if (this.noteInput.value) {
+            let key = Date.now().toString();
+            let note = { id: key, title: this.titleInput.value, note: this.noteInput.value };
+
+            this.displayNote(note);
+
+            this.$savedNotes.push(note);
+            localStorage.setItem("notes", JSON.stringify(this.$savedNotes));
+
+            this.noteInput.value = '';
+            this.titleInput.value = '';
+        }
+    }
+
 }
 
 export default StickyNoteApp;
