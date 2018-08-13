@@ -1,5 +1,5 @@
 # Sticky Note
-Note taking app built with ES5/ ES2015
+Note taking app built with ES5/ ES2015  
 
 ![image](https://github.com/slmanju/StickyNote/blob/master/screenshots/sticky-note.png)
 
