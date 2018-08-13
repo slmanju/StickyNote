@@ -1,5 +1,5 @@
-# StickyNote
-ES6/ ES2015 playground
+# Sticky Note
+Note taking app built with ES5/ ES2015
 
 ### references
 https://codelabs.developers.google.com/codelabs/chrome-es2015/index.html?index=..%2F..%2Findex#2
