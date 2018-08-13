@@ -19,9 +19,7 @@ class StickyNoteApp {
     displayNote(note) {
         let noteElement = document.createElement('sticky-note');
         noteElement.setNote(note);
-        noteElement.addEventListener('noteDelete', () => {
-            console.log('hello from delete');
-        });
+        noteElement.addEventListener('noteDelete', (event) => this.deleteNote(event.detail));
         this.notesContainer.appendChild(noteElement);
     }
 
@@ -33,11 +31,20 @@ class StickyNoteApp {
             this.displayNote(note);
 
             this.$savedNotes.push(note);
-            localStorage.setItem("notes", JSON.stringify(this.$savedNotes));
+            this.saveLocaly();
 
             this.noteInput.value = '';
             this.titleInput.value = '';
         }
+    }
+
+    deleteNote(note) {
+        this.$savedNotes = this.$savedNotes.filter(e => e !== note);
+        this.saveLocaly();
+    }
+
+    saveLocaly() {
+        localStorage.setItem("notes", JSON.stringify(this.$savedNotes));
     }
 
 }

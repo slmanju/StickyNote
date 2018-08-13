@@ -9,13 +9,18 @@ class StickyNote extends HTMLElement {
     // Fires when an instance of the element is created.
     createdCallback() {
         this.innerHTML = StickyNote.TEMPLATE;
-        this.$noteElement = this.querySelector('.note');
-        this.$deleteElement = this.querySelector('.delete');
-        this.$deleteElement.addEventListener('click', () => {
-            var event = new Event('noteDelete');
-            this.dispatchEvent(event);
-        });
+        this.$note = '';
+        this.$noteElement = this.querySelector('#note');
+        this.$titleElement = this.querySelector('#title');
+        this.$deleteElement = this.querySelector('#delete');
+        this.$deleteElement.addEventListener('click', () => this.deleteNote());
     };
+
+    deleteNote() {
+        this.parentNode.removeChild(this);
+        var event = new CustomEvent('noteDelete', { detail: this.$note });
+        this.dispatchEvent(event);
+    }
 
     // Fires when an instance was inserted into the document.
     attachedCallback() {};
@@ -28,6 +33,8 @@ class StickyNote extends HTMLElement {
 
     setNote(note) {
         this.$noteElement.textContent = note.note;
+        this.$titleElement.textContent = note.title;
+        this.$note = note;
     }
 
 }
@@ -36,10 +43,11 @@ StickyNote.TEMPLATE = `
     <div class="col s12 m4 l4">
         <div class="card">
             <div class="card-content">
-                <p class="note">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                <p id="title"></p>
+                <p id="note"></p>
             </div>
             <div class="card-action">
-                <a href='#' class="delete">Delete</a>
+                <a href='#' id="delete">Delete</a>
             </div>
         </div>
     </div>
